@@ -96,7 +96,7 @@ let config = {
 				weatherProvider: "openweathermap",
 				type: "current",
 				location: "Bangkok",
-				locationID: "1609350", //ID from http://bulk.openweathermap.org/sample/city.list.json.gz; unzip the gz file and find your city
+				locationID: "1609350",
 				apiKey: "163a46b5d45e56aeba5f7a1ad9c55838"
 			}
 		},
@@ -108,7 +108,7 @@ let config = {
 				weatherProvider: "openweathermap",
 				type: "forecast",
 				location: "Bangkok",
-				locationID: "1609350", //ID from http://bulk.openweathermap.org/sample/city.list.json.gz; unzip the gz file and find your city
+				locationID: "1609350",
 				apiKey: "163a46b5d45e56aeba5f7a1ad9c55838"
 			}
 		},

@@ -84,25 +84,65 @@ Module.register("compliments", {
 	 *
 	 * @returns {string[]} array with compliments for the time of the day.
 	 */
-	 emotionData:null,
-	 fetchingApi(){
-		fetch("http://localhost:3000/sending")
-		.then(res => res.json())
-		.then((data) => {
-			this.emotionData = data
-		})
+	emotionFaceData:null,
+	emotionVoiceData:null,
+	 
+	// for flask api // 
+	// fetchingApiFace(){
+	// 	fetch("http://localhost:3000/sending")
+	// 	.then(res => res.json())
+	// 	.then((data) => {
+	// 		console.log("In fetch",data);
+	// 		this.emotionFaceData = data
+	// 	});
+	// },
 
+	// fetchingApiVoice(){
+	// 	fetch("http://localhost:3000/sendingtwo")
+	// 	.then(res => res.json())
+	// 	.then((data) => {
+	// 		console.log("In fetch",data);
+	// 		this.emotionVoiceData = data
+	// 	});	
+	// },
+
+	// for debug // 
+	fetchingApiFace(){
+		fetch("http://localhost:3000/sending")
+		.then(response =>{
+			// console.log(response);
+			if(response.ok){
+				//  console.log(response.json()); 
+				 response.text().then((data) => {
+					//  console.log(data)
+					 this.emotionFaceData = data;
+					})
+				}
+			},
+		)
+		// .then(data => console.log("data ==>", data))
+	},
+
+	fetchingApiVoice(){
+		fetch("http://localhost:3000/sendingtwo")
+		.then(res => res.text()
+		.then(data => this.emotionVoiceData = data))
 	},
 
 	complimentArray:  function () {
-		let compliments;
+		let compliments = [];
+
 		try{
 			
-			this.fetchingApi();
-			compliments = this.emotionData;
+			this.fetchingApiFace();
+			this.fetchingApiVoice();
+			compliments.push(this.emotionFaceData);
+			compliments.push(this.emotionVoiceData)
+			// compliments = [this.emotionFaceData];
+			console.log("result ==>",compliments)
 			// console.log(compliments);
 	
-			if(compliments === undefined || compliments === null || compliments === NaN){
+			if(compliments[0] === undefined || compliments[0] === null || compliments[0] === NaN){
 				compliments = ["loading..."]
 				return compliments;
 			}else{
